@@ -1,0 +1,36 @@
+{
+  "known_vendors": [
+    "Gulf Mart",
+    "Star Traders",
+    "City Store",
+    "ACME Corp",
+    "Quick Shop"
+  ],
+  "vendor_ranges": {
+    "ACME Corp": {
+      "min": 55.0,
+      "max": 415.56
+    },
+    "Gulf Mart": {
+      "min": 192.83,
+      "max": 339.97
+    },
+    "Quick Shop": {
+      "min": 100.18,
+      "max": 227.36
+    },
+    "Star Traders": {
+      "min": 193.06,
+      "max": 404.53
+    },
+    "City Store": {
+      "min": 81.96,
+      "max": 486.69
+    }
+  },
+  "overall_stats": {
+    "min": 55.0,
+    "max": 486.69,
+    "mean": 251.791
+  }
+}
