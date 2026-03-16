@@ -337,6 +337,50 @@ def generate_anomaly_summary(is_forged, vendor, date, total, text):
             parts.append("The text patterns in this receipt are inconsistent with genuine documents in the training set.")
         return " ".join(parts)
 
+def highlight_fields_on_image(image, text_data, vendor, date, total, is_forged):
+    """Draw bounding boxes on the image around extracted fields."""
+    img_copy = image.copy().convert("RGB")
+    draw = ImageDraw.Draw(img_copy)
+
+    # colors: teal for vendor, blue for date, amber for total
+    # if suspicious, all boxes turn red to flag the tampering
+    if is_forged == 1:
+        color_vendor = (226, 75, 74)
+        color_date = (226, 75, 74)
+        color_total = (226, 75, 74)
+    else:
+        color_vendor = (93, 202, 165)
+        color_date = (133, 183, 235)
+        color_total = (239, 159, 39)
+
+    n_boxes = len(text_data['text'])
+
+    def find_and_draw(field_value, color):
+        if not field_value:
+            return
+        field_lower = field_value.lower().strip()
+        field_words = field_lower.split()
+
+        for i in range(n_boxes):
+            word = str(text_data['text'][i]).strip()
+            if not word:
+                continue
+            word_lower = word.lower()
+            # check if this OCR word matches any word from the extracted field
+            if any(fw in word_lower or word_lower in fw for fw in field_words if len(fw) > 2):
+                x = text_data['left'][i]
+                y = text_data['top'][i]
+                w = text_data['width'][i]
+                h = text_data['height'][i]
+                if w > 0 and h > 0:
+                    draw.rectangle([x, y, x + w, y + h], outline=color, width=2)
+
+    find_and_draw(vendor, color_vendor)
+    find_and_draw(date, color_date)
+    find_and_draw(total, color_total)
+
+    return img_copy
+
 sol = load_solution()
 
 uploaded_file = st.file_uploader(
@@ -350,6 +394,7 @@ if uploaded_file is not None:
 
     with st.spinner("Analyzing..."):
         text = pytesseract.image_to_string(image)
+        text_data = pytesseract.image_to_data(image, output_type=pytesseract.Output.DICT)
         vendor = sol._extract_vendor(text)
         date = sol._extract_date(text)
         total = sol._extract_total(text)
@@ -358,9 +403,10 @@ if uploaded_file is not None:
     col_img, col_fields = st.columns([1, 1], gap="medium")
 
     with col_img:
+        highlighted = highlight_fields_on_image(image, text_data, vendor, date, total, is_forged)
         border_class = "receipt-suspicious" if is_forged == 1 else "receipt-genuine"
         st.markdown(f'<div class="{border_class}">', unsafe_allow_html=True)
-        st.image(image, use_container_width=True)
+        st.image(highlighted, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_fields:
