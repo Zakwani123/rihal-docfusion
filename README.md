@@ -1,6 +1,6 @@
 # DocFusion: Operation Intelligent Documents
 
-**Author:** Mohammed  
+**Author:** Mohammed Al Zakwani  
 **Competition:** Rihal CodeStacker 2026 — ML Challenge
 
 ## Overview
