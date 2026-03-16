@@ -13,6 +13,7 @@ ML/
 ├── solution.py          # Core pipeline — DocFusionSolution class (train + predict)
 ├── app.py               # Streamlit web UI for receipt analysis
 ├── 01_eda.ipynb         # Exploratory Data Analysis across all 3 datasets
+├── 02_training_and_experiments.ipynb  # Model training logic and extraction experiments
 ├── check_submission.py  # Competition harness validator
 ├── requirements.txt     # Python dependencies
 ├── Dockerfile           # Container configuration for deployment
@@ -24,7 +25,7 @@ ML/
 
 ### Level 1 — Document Understanding & EDA
 
-Explored all three datasets (SROIE, Find-It-Again, CORD) in `01_eda.ipynb`. Analyzed OCR text quality, field distributions, layout variations, and the characteristics of forged receipts. Key finding: forged receipts in Find-It-Again were created using copy-paste techniques in Paint/Paint3D/GIMP, affecting mostly Total/Payment and Product fields.
+Explored all three datasets (SROIE, Find-It-Again, CORD) in 01_eda.ipynb. Model training logic and extraction experiments are documented in 02_training_and_experiments.ipynb. Analyzed OCR text quality, field distributions, layout variations, and the characteristics of forged receipts. Key finding: forged receipts in Find-It-Again were created using copy-paste techniques in Paint/Paint3D/GIMP, affecting mostly Total/Payment and Product fields.
 
 ### Level 2 — Structured Information Extraction
 
