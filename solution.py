@@ -84,7 +84,6 @@ class DocFusionSolution:
             os.path.join(train_dir, 'findit2', 'train.txt'),
             os.path.join(train_dir, '..', 'findit2', 'train.txt'),
             os.path.join(train_dir, '..', '..', 'Datasets', 'findit2', 'train.txt'),
-            r'C:\Users\modyx\OneDrive\Desktop\Rihal Project\Datasets\findit2\train.txt',
         ]
 
         findit_path = None
@@ -535,8 +534,8 @@ class DocFusionSolution:
                         best = combined
         # clean up common trailing noise
         best = best.strip().rstrip('.')
-        best = re.sub(r'\s*\([\d\w\-\.:]+\)\s*$', '', best)  
-        best = re.sub(r'\s+\d[\d\-\.,:\s]+$', '', best)  
+        best = re.sub(r'\s*\([\d\w\-\.:]+\)\s*$', '', best)
+        best = re.sub(r'\s+\d[\d\-\.,:\s]+$', '', best)
         best = re.sub(r'\s+$', '', best)
 
         return best

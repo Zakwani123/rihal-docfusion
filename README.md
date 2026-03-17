@@ -1,4 +1,4 @@
-# DocFusion: Operation Intelligent Documents
+# DocFusion
 
 **Author:** Mohammed Al Zakwani  
 **Competition:** Rihal CodeStacker 2026 — ML Challenge
@@ -33,7 +33,7 @@ Built a multi-strategy extraction pipeline using Tesseract OCR:
 
 - **Vendor:** Two-pass approach. First checks against known vendors learned during training. Falls back to heuristic scoring based on business keywords (e.g., "Sdn Bhd", "Enterprise"), capitalization patterns, and line position. Filters out person names, addresses, and document headers.
 - **Date:** Regex matching across 11 date format patterns (DD/MM/YYYY, YYYY-MM-DD, DD.MM.YY, etc.). Prioritizes lines containing the word "date" before scanning the full text.
-- **Total:** Six-priority extraction system designed to handle real-world OCR noise. Prioritizes rounded/nett totals over subtotals, handles OCR misspellings (e.g., "tatal", "tota!"), cleans spacing errors in numbers (e.g., "39. 80" → "39.80"), and skips subtotal/tax/rounding/discount lines.
+- **Total:** Multi-strategy extraction designed to handle real-world OCR noise. Prioritizes rounded/nett totals over subtotals, handles OCR misspellings (e.g., "tatal", "tota!"), cleans spacing errors in numbers (e.g., "39. 80" → "39.80"), and skips subtotal/tax/rounding/discount lines.
 
 ### Level 3 — Anomaly Detection & Web UI
 
@@ -66,8 +66,6 @@ Tested on 100 SROIE receipts:
 | Date   | 69%      |
 | Total  | 62%      |
 | Vendor | 32%      |
-
-Anomaly detection tested on Find-It-Again samples with correct classification of forged and genuine receipts.
 
 ## Design Decisions
 
